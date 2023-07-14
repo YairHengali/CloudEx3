@@ -85,7 +85,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: GH_log_file
-        path:  ./GH_log_file/log.txt
+        path:  ${{ github.workspace }}/log.txt
         
 # #     The following steps will only execute if tests succeeded
 #     - name: Set DATE
