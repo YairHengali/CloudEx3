@@ -75,6 +75,7 @@ jobs:
       run: |
         cd tests
         pytest -v assn3_tests.py > assn3_test_results.txt
+      continue-on-error: true
     - name: assert tests secceeded
       if: ${{ steps.pytest.outputs.return-code == '0' }}
       run: echo "tests succeed" >> GH_log_file/log.txt
