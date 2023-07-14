@@ -79,10 +79,10 @@ jobs:
       
     - name: assert tests secceeded
       if: success()
-      run: echo "tests succeed" >> GH_log_file/log.txt
+      run: echo "tests succeeded" >> GH_log_file/log.txt
     - name: assert tests failed
       if: failure()
-      run: echo "tests succeed" >> GH_log_file/log.txt
+      run: echo "tests failed" >> GH_log_file/log.txt
     - name: upload test results
       if: always()  # always perform this step even if tests fail, to see results
       uses: actions/upload-artifact@v3
