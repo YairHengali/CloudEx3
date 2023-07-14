@@ -28,6 +28,7 @@ jobs:
       if: failure()
       run:  echo "image not able to be built" >> log.txt
     - name: upload log file
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: GH_log_file
@@ -90,6 +91,7 @@ jobs:
         path: tests/assn3_test_results.txt
         
     - name: Upload updated log file
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: GH_log_file
