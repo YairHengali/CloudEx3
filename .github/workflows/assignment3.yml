@@ -30,7 +30,7 @@ jobs:
     - name: upload log file
       uses: actions/upload-artifact@v3
       with:
-        name: GH_log_file_1
+        name: GH_log_file
         path: ./log.txt
     - name: Upload artifact
       uses: actions/upload-artifact@v3
@@ -54,9 +54,9 @@ jobs:
     - name: Check container is running
       run: |
         if docker ps | grep -q "mealssvr"; then
-          echo "Container up and running" >> GH_log_file_1/log.txt
+          echo "Container up and running" >> GH_log_file/log.txt
         else
-          echo "Container failed to run" >> GH_log_file_1/log.txt
+          echo "Container failed to run" >> GH_log_file/log.txt
         fi
 #     2. set up python and pytest environments
     - name: Checkout
@@ -84,8 +84,8 @@ jobs:
     - name: Upload updated log file
       uses: actions/upload-artifact@v3
       with:
-        name: GH_log_file_1
-        path:  /log.txt
+        name: GH_log_file
+        path:  ./GH_log_file/log.txt
         
 # #     The following steps will only execute if tests succeeded
 #     - name: Set DATE
