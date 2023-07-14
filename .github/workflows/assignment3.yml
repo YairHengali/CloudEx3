@@ -21,12 +21,12 @@ jobs:
         file: ./Dockerfile
         tags: mealssvr:latest #, ${{ secrets.DOCKER_COURSE_USERNAME }}/mealssvr:latest
         outputs: type=docker,dest=/tmp/image.tar
-    - name: Check image build status and update log
-      run: |
-        if [[ "${{ steps.build-image.outputs.status }}" == 'success' ]]; then
-          echo "image successfully built" >> log.txt
-        else
-          echo "image not able to be built" >> log.txt
+    - name: update log if image built
+      if: success()
+      run:  echo "image successfully built" >> log.txt
+    - name: update log if image not able to built
+      if: failure()
+      run:  echo "image not able to be built" >> log.txt
     - name: upload log file
       uses: actions/upload-artifact@v3
       with:
