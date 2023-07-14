@@ -52,7 +52,12 @@ jobs:
     - name: run image in container
       run: docker run -p8000:8000 mealssvr &
     - name: Check container is running
-      run: docker ps
+      run: |
+        if docker ps | grep -q "mealssvr"; then
+          echo "Container up and running" >> GH_log_file/log.txt
+        else
+          echo "Container failed to run" >> GH_log_file/log.txt
+        fi
 #     2. set up python and pytest environments
     - name: Checkout
       uses: actions/checkout@v3
