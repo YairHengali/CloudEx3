@@ -2,4 +2,6 @@ chocolate
 cola
 popcorn
 cheese
-agg
+egg
+ice cream
+apple pie

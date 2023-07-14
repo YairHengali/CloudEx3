@@ -8,21 +8,16 @@ def base_url():
 def test_1_post_3_dishes(base_url):
     dish_names = ["orange", "spaghetti", "apple pie"]
     dish_ids = set()
-    # status_codes = set()
 
     for dish in dish_names:
         response = requests.post(f"{base_url}/dishes", json={"name": dish})
         assert response.status_code == 201 #all got 201 code
         dish_id = int(response.text)
         dish_ids.add(dish_id)
-        # status_codes.add(response.status_code)
 
     assert len(dish_ids) == len(dish_names)  # Unique IDs
-    # assert len(status_codes) == 1 and 201 in status_codes  # All requests return 201 status code
 
-########### #HOW TO GET THE ORANGE ID - IS IT A GOOD WAY?? (using a request to get it And not from the previous test)
 def test_2_get_orange_by_id(base_url): 
-        #HOW TO GET THE ORANGE ID - IS IT A GOOD WAY?? (using a request to get it And not from the previous test)
         get_orange_response = requests.get(f"{base_url}/dishes/orange")
         orange_id = get_orange_response.json().get("ID")
 
@@ -30,7 +25,6 @@ def test_2_get_orange_by_id(base_url):
         assert response.status_code == 200 #the return status code from the request is 200
         orange_sodium = response.json().get("sodium")
         assert 0.9 < orange_sodium < 1.1 #the sodium field of the return JSON object is between .9 and 1.1
-##########################################
 
 def test_3_get_dishes(base_url):
         response = requests.get(f"{base_url}/dishes")
@@ -49,7 +43,6 @@ def test_5_post_orange_dish(base_url):
         assert int(response.text) == -2 #the return value is -2
 
 def test_6_post_delicious_meal(base_url):
-        #HOW TO GET THE IDs - IS IT A GOOD WAY?? (using a request to get it And not from the previous test)
         get_orange_response = requests.get(f"{base_url}/dishes/orange")
         orange_id = get_orange_response.json().get("ID")
         get_spaghetti_response = requests.get(f"{base_url}/dishes/spaghetti")

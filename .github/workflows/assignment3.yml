@@ -1,4 +1,4 @@
-name: assignment3 #NEED TO ADD THE LOG.TXT FILE AND QUERY
+name: assignment3
 on:
   push
 jobs:
@@ -20,7 +20,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        tags: mealssvr:latest #, ${{ secrets.DOCKER_COURSE_USERNAME }}/mealssvr:latest
+        tags: mealssvr:latest
         outputs: type=docker,dest=/tmp/image.tar
     - name: update log if image built
       if: success()
@@ -39,6 +39,7 @@ jobs:
       with:
         name: mealssvr
         path: /tmp/image.tar
+
 
   test:
     needs: build
@@ -98,21 +99,6 @@ jobs:
         name: GH_log_file
         path:  GH_log_file/log.txt
         
-# #     The following steps will only execute if tests succeeded
-#     - name: Set DATE
-#       run: echo "DATE=$(date -I)" >> $GITHUB_ENV
-#     - name: Log in to Docker Hub
-#       uses: docker/login-action@v2
-#       with:
-#         username: ${{ secrets.DOCKER_COURSE_USERNAME }}
-#         password: ${{ secrets.DOCKER_COURSE_PASSWORD }}
-#     - name: push image with "latest" and date tags to DH
-#       run: |
-#         docker push ${{ secrets.DOCKER_COURSE_USERNAME }}/wordsvr-v2
-#         docker tag ${{ secrets.DOCKER_COURSE_USERNAME }}/wordsvr-v2 \
-#         ${{ secrets.DOCKER_COURSE_USERNAME }}/wordsvr-v2:${{ env.DATE }}
-#         docker push \
-#         ${{ secrets.DOCKER_COURSE_USERNAME }}/wordsvr-v2:${{ env.DATE }}
 
   query:
     needs: build
@@ -139,9 +125,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-#      3. run pytest tests and check results
     - name: solve query
       run: python -c 'from query_func import query_resolver; query_resolver()' >> response.txt
-    - name: tasty
-      run: cat response.txt 
+    - name: upload response.txt
+      if: always() 
+      uses: actions/upload-artifact@v3
+      with:
+        name: GH_response
+        path: ./response.txt
       
