@@ -141,7 +141,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 #      3. run pytest tests and check results
     - name: solve query
-      run: python -c 'from query_func.py import query_resolver; query_resolver()' >> response.txt
+      run: python -c 'from query_func import query_resolver; query_resolver()' >> response.txt
     - name: tasty
       run: cat response.txt 
       
