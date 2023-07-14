@@ -30,7 +30,7 @@ jobs:
     - name: upload log file
       uses: actions/upload-artifact@v3
       with:
-        name: GH_log_file
+        name: GH_log_file_1
         path: ./log.txt
     - name: Upload artifact
       uses: actions/upload-artifact@v3
@@ -84,7 +84,7 @@ jobs:
     - name: Upload updated log file
       uses: actions/upload-artifact@v3
       with:
-        name: GH_log_file
+        name: GH_log_file_1
         path:  /log.txt
         
 # #     The following steps will only execute if tests succeeded
