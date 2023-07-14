@@ -28,6 +28,7 @@ jobs:
       if: failure()
       run:  echo "image not able to be built" >> log.txt
     - name: upload log file
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: GH_log_file
@@ -75,12 +76,13 @@ jobs:
       run: |
         cd tests
         pytest -v assn3_tests.py > assn3_test_results.txt
+      
     - name: assert tests secceeded
-      if: ${{ steps.pytest.outputs.return-code == '0' }}
-      run: echo "tests succeed" >> GH_log_file/log.txt
+      if: success()
+      run: echo "tests succeeded" >> GH_log_file/log.txt
     - name: assert tests failed
-      if: ${{ steps.pytest.outputs.return-code != '0' }}
-      run: echo "tests succeed" >> GH_log_file/log.txt
+      if: failure()
+      run: echo "tests failed" >> GH_log_file/log.txt
     - name: upload test results
       if: always()  # always perform this step even if tests fail, to see results
       uses: actions/upload-artifact@v3
@@ -89,6 +91,7 @@ jobs:
         path: tests/assn3_test_results.txt
         
     - name: Upload updated log file
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: GH_log_file
