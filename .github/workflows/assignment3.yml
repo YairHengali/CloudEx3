@@ -43,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 #    1. download image and run it in a container
+    - name: Checkout
+      uses: actions/checkout@v3
     - name: Download artifact
       uses: actions/download-artifact@v3  # downloads all artifacts
     - name: Load Docker images from previous workflows
@@ -59,8 +61,6 @@ jobs:
           echo "Container failed to run" >> GH_log_file/log.txt
         fi
 #     2. set up python and pytest environments
-    - name: Checkout
-      uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v4
     - name: Install dependencies
@@ -87,7 +87,7 @@ jobs:
     - name: Upload updated log file
       uses: actions/upload-artifact@v3
       with:
-        name: GH_log_file_updated
+        name: GH_log_file
         path:  GH_log_file/log.txt
         
 # #     The following steps will only execute if tests succeeded
