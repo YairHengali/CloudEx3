@@ -101,7 +101,7 @@ jobs:
         
 
   query:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
 #    1. download image and run it in a container
