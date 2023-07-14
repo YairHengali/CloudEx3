@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: print current time to log.txt #toCheck
-      run: echo "date –Iminutes" >> log.txt #toCheck
+      run: echo date –Iminutes >> log.txt #toCheck
     - name: upload log
       uses: actions/upload-artifact@v3
       with:
