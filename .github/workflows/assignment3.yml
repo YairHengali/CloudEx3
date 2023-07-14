@@ -77,10 +77,10 @@ jobs:
         pytest -v assn3_tests.py > assn3_test_results.txt
     - name: assert tests secceeded
       if: ${{ steps.pytest.outputs.return-code == '0' }}
-        run:| echo "tests succeed" >> GH_log_file/log.txt
+      run: echo "tests succeed" >> GH_log_file/log.txt
     - name: assert tests failed
       if: ${{ steps.pytest.outputs.return-code != '0' }}
-        run:| echo "tests succeed" >> GH_log_file/log.txt
+      run: echo "tests succeed" >> GH_log_file/log.txt
     - name: upload test results
       if: always()  # always perform this step even if tests fail, to see results
       uses: actions/upload-artifact@v3
