@@ -5,13 +5,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: print current time to log.txt #toCheck
-      run: date -Iminutes >> log.txt #toCheck
-    - name: upload log
-      uses: actions/upload-artifact@v3
-      with:
-        name: GH_log_file
-        path: ./log.txt
+    - name: print current time and names to log.txt
+      run: |
+        date -Iminutes >> log.txt
+        echo Yair Hengali >> log.txt
+        echo Ofir Nakdai >> log.txt
     - name: Checkout
       uses: actions/checkout@v3
     - name: Set up Docker Buildx
@@ -23,6 +21,17 @@ jobs:
         file: ./Dockerfile
         tags: mealssvr:latest #, ${{ secrets.DOCKER_COURSE_USERNAME }}/mealssvr:latest
         outputs: type=docker,dest=/tmp/image.tar
+    - name: Check image build status and update log
+      run: |
+        if [[ steps.build-image.outputs.status == 'success' ]]; then
+          echo "image successfully built" >> log.txt
+        else
+          echo "image not able to be built" >> log.txt
+    - name: upload log file
+      uses: actions/upload-artifact@v3
+      with:
+        name: GH_log_file
+        path: ./log.txt
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
