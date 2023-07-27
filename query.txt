@@ -1,7 +1,3 @@
-chocolate
-cola
-popcorn
-cheese
-egg
-ice cream
+steak
 apple pie
+banana
