@@ -68,8 +68,3 @@ def test_8_post_meal_with_same_name(base_url):
         response = requests.post(f"{base_url}/meals", json={"name": "delicious", "appetizer" : 1, "main" : 1, "dessert" : 1})
         assert response.status_code in [400, 422] #the return status code from the request is 400 or 422
         assert int(response.text) == -2 #the code is -2 (same meal name as existing meal) 
-
-def test_9_post_meal_with_same_name(base_url):
-        response = requests.post(f"{base_url}/meals", json={"name": "delicious", "appetizer" : 2, "main" : 1, "dessert" : 1})
-        assert response.status_code in [400, 422] #the return status code from the request is 400 or 422
-        assert int(response.text) == -9 #the code is -2 (same meal name as existing meal) 
