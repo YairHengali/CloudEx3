@@ -4,7 +4,6 @@ import requests
 import json
 
 API_KEY = "bzdh0a0GhXA9m2d/AaTdpQ==N5VwCq0xTbu9UEyq"
-
 app = Flask(__name__)
 api = Api(app)
 
